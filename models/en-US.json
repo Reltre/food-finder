@@ -1,0 +1,279 @@
+{
+    "interactionModel":{
+        "languageModel": {
+          "types": [
+            {
+              "name": "distanceType",
+              "values": [
+                {
+                  "id": null,
+                  "name": {
+                    "value": "zero point two",
+                    "synonyms": [
+                      "point two"
+                    ]
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "zero point five",
+                    "synonyms": [
+                      "point five"
+                    ]
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "one",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "two",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "three",
+                    "synonyms": []
+                  }
+                }
+              ]
+            },
+            {
+              "name": "locationType",
+              "values": [
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Los Angeles",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Hollywood",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Santa Monica",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Mar Vista",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Inglewood",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "LAX",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Northridge",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Beverly Hills",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Chinatown",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Silver Lake",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Brentwood",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "El Segundo",
+                    "synonyms": []
+                  }
+                },
+                {
+                  "id": null,
+                  "name": {
+                    "value": "Malibu",
+                    "synonyms": []
+                  }
+                }
+              ]
+            }
+          ],
+          "intents": [
+            {
+              "name": "AMAZON.CancelIntent",
+              "samples": []
+            },
+            {
+              "name": "AMAZON.HelpIntent",
+              "samples": []
+            },
+            {
+              "name": "AMAZON.StopIntent",
+              "samples": []
+            },
+            {
+              "name": "RecommendationIntent",
+              "samples": [
+                "find a restaurant near me",
+                "find a restaurant within {distance} miles",
+                "look for a {restaurant} restaurant {distance} miles from {location}",
+                "search for a {restaurant} restaurant {distance} miles from {location}",
+                "find food near {location}",
+                "what restaurants are close to {location}",
+                "find me a restaurant within {distance} of {location}",
+                "I want to go a {restaurant} {distance} miles away from {location}"
+              ],
+              "slots": [
+                {
+                  "name": "distance",
+                  "type": "distanceType",
+                  "samples": [
+                    "look for restaurant {distance} miles away",
+                    "find a restaurant {distance} miles from {location}",
+                    "{distance} miles away",
+                    "{distance} miles from that location",
+                    "{distance}"
+                  ]
+                },
+                {
+                  "name": "location",
+                  "type": "locationType",
+                  "samples": [
+                    "{location}",
+                    "Around the city of {location}",
+                    "Within {distance} miles of {location}",
+                    "Around {distance} miles of location"
+                  ]
+                },
+                {
+                  "name": "restaurant",
+                  "type": "AMAZON.Food"
+                }
+              ]
+            }
+          ],
+          "invocationName": "food finder"
+        },
+        "prompts": [
+          {
+            "id": "Elicit.Intent-RecommendationIntent.IntentSlot-distance",
+            "variations": [
+              {
+                "type": "PlainText",
+                "value": "How many miles away from {location} should I search for a restaurant?"
+              },
+              {
+                "type": "PlainText",
+                "value": "How many miles away should I search? "
+              },
+              {
+                "type": "PlainText",
+                "value": "Ok, how many miles from {location} should I search for a {restaurant} restaurant?"
+              }
+            ]
+          },
+          {
+            "id": "Elicit.Intent-RecommendationIntent.IntentSlot-location",
+            "variations": [
+              {
+                "type": "PlainText",
+                "value": "Around which city should I search for restaurants?"
+              },
+              {
+                "type": "PlainText",
+                "value": "Around which city should I search for {restaurant} food?"
+              },
+              {
+                "type": "PlainText",
+                "value": "Ok, you want me to find food within {distance} miles, which city should I search around? "
+              },
+              {
+                "type": "PlainText",
+                "value": "So, you want {restaurant} food within {distance} miles. Which city should I search in?"
+              }
+            ]
+          }
+        ],
+        "dialog": {
+          "intents": [
+            {
+              "name": "RecommendationIntent",
+              "confirmationRequired": false,
+              "prompts": {},
+              "slots": [
+                {
+                  "name": "distance",
+                  "type": "distanceType",
+                  "elicitationRequired": true,
+                  "confirmationRequired": false,
+                  "prompts": {
+                    "elicitation": "Elicit.Intent-RecommendationIntent.IntentSlot-distance"
+                  }
+                },
+                {
+                  "name": "location",
+                  "type": "locationType",
+                  "elicitationRequired": true,
+                  "confirmationRequired": false,
+                  "prompts": {
+                    "elicitation": "Elicit.Intent-RecommendationIntent.IntentSlot-location"
+                  }
+                },
+                {
+                  "name": "restaurant",
+                  "type": "AMAZON.Food",
+                  "elicitationRequired": false,
+                  "confirmationRequired": false,
+                  "prompts": {}
+                }
+              ]
+            }
+          ]
+        }
+      }
+}
